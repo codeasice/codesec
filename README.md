@@ -13,7 +13,7 @@ Cheat Sheet
 -------------
 nc 192.168.1.38 1500 | script/rails runner lib/inserter.rb
 
-rackup faye_server.ru -E Development -s thin
+rackup lib/faye_server.ru -E Development -s thin
 script/rails runner faye_client.ru
 
 curl http://localhost:9292/faye -d 'message={"channel":"/messages/new", "data":"hello"}'
