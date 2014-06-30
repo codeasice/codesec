@@ -4,9 +4,9 @@ Display security zone alerts overlaid on floorplans
 
 Todo
 -------------
-Much
-Auth
-Encryption
+* Much
+* Auth
+* Encryption
 
 
 Cheat Sheet
