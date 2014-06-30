@@ -1,0 +1,37 @@
+<div class="chat_container">
+  <div id="chat_room">
+    <p class="alert"> We could diagnose some stuff <%= session[:username] %>! </p>
+  </div>
+ 
+  <form id="new_message_form">
+    <%= label_tag(:channel, "Channel:") %>
+<%= select_tag(:channel, options_for_select([["/messages/new"],[ "/messages/zonestatus"]])) %>
+    <%= label_tag(:stamp, "Stamp:") %>
+ 	<%= text_field_tag(:stamp) %>
+    <%= label_tag(:zone, "Zone:") %>
+ <%= text_field_tag(:zone) %>
+    <%= label_tag(:status, "Status:") %>
+ <%= text_field_tag(:status) %>
+    <input type="submit" value="Send">
+  </form>
+</div>
+<script>
+  $(function() {
+    // Create a new client to connect to Faye
+ var client = new Faye.Client('http://192.168.1.77:9292/faye');
+ 
+    // Handle form submissions and post messages to faye
+    $('#new_message_form').submit(function(){
+      // Publish the message to the public channel
+var message = new Object();
+message.zone = $('#zone').val();
+message.status = $('#status').val();
+message.stamp = Date.now();
+var json = JSON.stringify(message);
+      client.publish($('#channel').val(), json);
+alert(json);
+ 
+      return false;
+    });
+  });
+</script>

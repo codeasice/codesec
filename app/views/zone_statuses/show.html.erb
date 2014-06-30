@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Zone:</b>
+  <%= @zone_status.zone %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @zone_status.status %>
+</p>
+
+<p>
+  <b>Stamp:</b>
+  <%= @zone_status.stamp %>
+</p>
+
+
+<%= link_to 'Edit', edit_zone_status_path(@zone_status) %> |
+<%= link_to 'Back', zone_statuses_path %>

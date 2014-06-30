@@ -1,0 +1,19 @@
+<h1>Recent der</h1>
+<%= params[:to_id] %>
+<table>
+  <tr>
+    <th>id</th>
+    <th>Zone</th>
+    <th>Status</th>
+    <th>Stamp</th>
+  </tr>
+
+<% @zone_statuses.each do |zone_status| %>
+  <tr>
+    <td><%= zone_status.id %></td>
+    <td><%= zone_status.zone %></td>
+    <td><%= zone_status.status %></td>
+    <td><%= zone_status.stamp %></td>
+  </tr>
+<% end %>
+</table>

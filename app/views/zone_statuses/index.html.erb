@@ -1,0 +1,27 @@
+<h1>Listing zone_statuses</h1>
+
+<table>
+  <tr>
+    <th>Zone</th>
+    <th>Status</th>
+    <th>Stamp</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @zone_statuses.each do |zone_status| %>
+  <tr>
+    <td><%= zone_status.zone %></td>
+    <td><%= zone_status.status %></td>
+    <td><%= zone_status.stamp %></td>
+    <td><%= link_to 'Show', zone_status %></td>
+    <td><%= link_to 'Edit', edit_zone_status_path(zone_status) %></td>
+    <td><%= link_to 'Destroy', zone_status, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Zone status', new_zone_status_path %>

@@ -1,0 +1,29 @@
+<%= form_for(@zone) do |f| %>
+  <% if @zone.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@zone.errors.count, "error") %> prohibited this zone from being saved:</h2>
+
+      <ul>
+      <% @zone.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :zone_id %>
+    <%= f.inputbox_field :zone_id %>
+  </div>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="form-group">
+    <%= f.label :div %>
+    <%= f.text_field :div %>
+  </div>
+  <div class="actions">
+    <%= f.submit :class=>"btn btn-primary" %>
+  </div>
+<% end %>

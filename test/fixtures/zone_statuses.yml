@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  zone: 1
+  status: 1
+  stamp: 2013-06-22 13:06:44
+
+two:
+  zone: 1
+  status: 1
+  stamp: 2013-06-22 13:06:44

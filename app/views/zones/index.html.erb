@@ -1,0 +1,29 @@
+<div class="container">
+<h1>Listing zones</h1>
+
+<table class="table table-hover table-condensed">
+  <tr>
+    <th>Zone ID</th>
+    <th>Name</th>
+    <th>Div</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @zones.each do |zone| %>
+  <tr>
+    <td><%= zone.zone_id %></td>
+    <td><%= zone.name %></td>
+    <td><%= zone.div %></td>
+    <td><%= link_to 'Show', zone, :class=>"btn btn-default"  %></td>
+    <td><%= link_to 'Edit', edit_zone_path(zone), :class=>"btn btn-default" %></td>
+    <td><%= link_to 'Destroy', zone, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Zone', new_zone_path, :class => "btn btn-default" %>
+</div>

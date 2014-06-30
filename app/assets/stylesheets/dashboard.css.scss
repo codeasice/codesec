@@ -1,0 +1,102 @@
+// Place all the styles related to the Dashboard controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+body.body-dashboard
+{
+background-color: #222;
+}
+#floorplan
+{
+        width: 949px;
+        height: 371px;
+        border: 2px solid #ccc;
+        background-image:url('/assets/floorplan.jpg');
+        margin-left: auto ;
+        margin-right: auto ;    
+        position:relative;
+}
+
+
+.room
+{
+        background-color: #F00;
+        display:inline-block;
+        position:absolute;
+        border: 3px solid #999;
+}
+
+#office
+{
+        opacity:0.0;
+        top:237px; 
+        left:550px; 
+        width:70px; 
+        height:40px;
+}
+
+#kitchen
+{
+        opacity:0.0;
+        top:102px; 
+        left:550px; 
+        width:70px; 
+        height:135px;
+}
+
+#living_room
+{
+        opacity:0.0;
+        top:102px; 
+        left:622px; 
+        width:122px; 
+        height:75px;
+}
+#back_porch
+{
+        opacity:0.0;
+        top:150px; 
+        left:500px; 
+        width:50px; 
+        height:85px;
+        background-color: #bbb;
+}
+#carport
+{
+        opacity:0.0;
+        top:38px; 
+        left:608px; 
+        width:136px; 
+        height:61px;
+        background-color: #bbb;
+}
+
+#status
+{
+        width: 949px;
+        border: 2px solid #ccc;
+        margin-left: auto ;
+        margin-right: auto ;    
+        position:relative;
+        color: #ccc;
+}
+
+#log
+{
+        width: 949px;
+        border: 2px solid #ccc;
+        margin-left: auto ;
+        margin-right: auto ;    
+        position:relative;
+        color: #ccc;
+}
+
+#sparklines
+{
+     width: 949px;
+        border: 2px solid #ccc;
+        margin-left: auto ;
+        margin-right: auto ;
+        position:relative;
+        color: #ccc;
+
+}

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <b>Zone ID:</b>
+  <%= @zone.zone_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @zone.name %>
+</p>
+
+<p>
+  <b>Div:</b>
+  <%= @zone.div %>
+</p>
+
+
+<%= link_to 'Edit', edit_zone_path(@zone), :class => 'btn default-btn' %>
+<%= link_to 'Back', zones_path, :class => 'btn default-btn' %>
