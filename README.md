@@ -1,6 +1,6 @@
 codesec
 ===========
-Display security zone alerts overlaid on floorplans
+Basic app for displaying security zone alerts overlaid on floorplans
 
 Todo
 -------------
