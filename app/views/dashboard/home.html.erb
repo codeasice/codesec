@@ -1,59 +1,72 @@
-<div id="floorplan">
-  <div class="room" id="office" ></div>
-  <div class="room" id="kitchen" ></div>
-  <div class="room" id="living_room" ></div>
-  <div class="room" id="back_porch" ></div>
-  <div class="room" id="carport" ></div>
+
+<div class="row">
+  <div id="floorplan">
+    <div class="room" id="office" ></div>
+    <div class="room" id="kitchen" ></div>
+    <div class="room" id="living_room" ></div>
+    <div class="room" id="back_porch" ></div>
+    <div class="room" id="carport" ></div>
+  </div>
 </div>
-<div id="status">
+<div class="row">
+  <div id="status">
 This is some status stuff...
+  </div>
 </div>
-<div id='sparklines' class='sparklines'>
+<div class="row">
+  <div id='sparklines' class='sparklines'>
+  </div>
 </div>
-
-<div id="log">
+<div class="row">
+  <div id="log">
 Everybody's favorite.  Log.
+  </div>
 </div>
-<script>
-$(function() {
-  var faye = new Faye.Client('http://192.168.1.77:9292/faye');
-  faye.subscribe("/messages/new", function(data) 
-  {
-    //var msg = JSON.parse(data);
- try{
-    data = JSON.parse(data);
-    }catch(e){
-    }
-    log(data.msg);
-  });
-  faye.subscribe("/messages/zonestatus", function(data) 
-  {
-    var msg = JSON.parse(data);
-    log(msg.stamp + ' ' + zones[msg.zone].name + "[" + msg.zone + "] ");
-    zone_alert(msg.zone, new Date(msg.stamp));
-    bubblesInc(zones[msg.zone].name );
-  });
-});
 
-setInterval(refresh_alert,1000);
+<script type="text/javascript">
+  $(function() {
+    var faye = new Faye.Client('http://192.168.1.77:9292/faye');
+    faye.subscribe("/messages/new", function(data) 
+    {
+      try
+      {
+        data = JSON.parse(data);
+      }
+      catch(e)
+      {
+        log("Can't parse some JSON!");
+      }
+      log(data.msg);
+    });
+    faye.subscribe("/messages/zonestatus", function(data) 
+    {
+      var msg = JSON.parse(data);
+      log(msg.stamp + ' ' + zones[msg.zone].name + "[" + msg.zone + "] ");
+      zone_alert(msg.zone, new Date(msg.stamp));
+      bubblesInc(zones[msg.zone].name );
+    });
+  });
+  
+  setInterval(refresh_alert,1000);
 </script>
 
-                <SCRIPT type="text/javascript">
 
-                function bubblesPrint()
-                {
-                        var keys = Object.keys(newbubbles);
-                        $( "#sparklines" ).html('<table>');
-                        for (var j = 0; j < keys.length; j++)
-                        {
-                                var str = keys[j];
-				var tagName = 'sparkline'+str.replace(/\W/g, '')
-                                $("#sparklines").append('<tr><td>' + str + "</td><td> <span class='"+tagName+"' id='"+tagName+"'></span></td></tr>");
-                                $("#"+tagName).sparkline(oldbubbles[str], {type: 'line', height: '60', barColor: 'red', chartRangeMax: bubblesMaxValue()} );
-                        }
-                        $( "#sparklines" ).append('</table>');
-                }
-		numbubbles = 288;
-		
-                window.setInterval(function(){bubblesShift(); bubblesPrint();},600 * 1000);
-</SCRIPT>
+<script type="text/javascript">
+  function bubblesPrint()
+  {
+    var keys = Object.keys(newbubbles);
+    $( "#sparklines" ).html('<table>');
+  
+    for (var j = 0; j < keys.length; j++)
+    {
+      var str = keys[j];
+      var tagName = 'sparkline'+str.replace(/\W/g, '')
+      $("#sparklines").append('<tr><td>' + str + "</td><td> <span class='"+tagName+"' id='"+tagName+"'></span></td></tr>");
+      $("#"+tagName).sparkline(oldbubbles[str], {type: 'line', height: '60', barColor: 'red', chartRangeMax: bubblesMaxValue()} );
+    }
+    $( "#sparklines" ).append('</table>');
+  }
+  numbubbles = 288;
+  		
+  window.setInterval(function(){bubblesShift(); bubblesPrint();},600 * 1000);
+</script>
