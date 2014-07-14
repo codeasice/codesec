@@ -123,4 +123,47 @@ log("Testes:"+item.stamp + " : " + new DateHere());
 
     });
 }
-//setInterval(refresh_alert,1000)
+
+  $(function() {
+    var faye = new Faye.Client('http://192.168.1.77:9292/faye');
+    faye.subscribe("/messages/new", function(data)
+    {
+      try
+      {
+        data = JSON.parse(data);
+      }
+      catch(e)
+      {
+        log("Can't parse some JSON!");
+      }
+      log(data.msg);
+    });
+    faye.subscribe("/messages/zonestatus", function(data)
+    {
+      var msg = JSON.parse(data);
+      log(msg.stamp + ' ' + zones[msg.zone].name + "[" + msg.zone + "] ");
+      zone_alert(msg.zone, new Date(msg.stamp));
+      bubblesInc(zones[msg.zone].name );
+    });
+  });
+
+  setInterval(refresh_alert,1000);
+
+  function bubblesPrint()
+  {
+    var keys = Object.keys(newbubbles);
+    $( "#sparklines" ).html('<table>');
+
+    for (var j = 0; j < keys.length; j++)
+    {
+      var str = keys[j];
+      var tagName = 'sparkline'+str.replace(/\W/g, '')
+      $("#sparklines").append('<tr><td>' + str + "</td><td> <span class='"+tagName+"' id='"+tagName+"'></span></td></tr>");
+      $("#"+tagName).sparkline(oldbubbles[str], {type: 'line', height: '60', barColor: 'red', chartRangeMax: bubblesMaxValue()} );
+    }
+    $( "#sparklines" ).append('</table>');
+  }
+  numbubbles = 288;
+
+  window.setInterval(function(){bubblesShift(); bubblesPrint();},600 * 1000);
+

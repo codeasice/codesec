@@ -14,8 +14,9 @@ gem 'sqlite3'
 # Gems used only for assets and not required
 # in production environments by default.
 gem "therubyracer"
-gem 'less-rails', '2.3.3'
-gem 'twitter-bootstrap-rails'
+gem 'less-rails'
+gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'

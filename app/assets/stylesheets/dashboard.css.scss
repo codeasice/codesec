@@ -5,6 +5,7 @@ body.body-dashboard
 {
 background-color: #222;
 }
+
 #floorplan
 {
         width: 949px;
@@ -15,7 +16,6 @@ background-color: #222;
         margin-right: auto ;    
         position:relative;
 }
-
 
 .room
 {
@@ -72,31 +72,17 @@ background-color: #222;
 
 #status
 {
-        width: 949px;
-        border: 2px solid #ccc;
-        margin-left: auto ;
-        margin-right: auto ;    
-        position:relative;
         color: #ccc;
 }
 
 #log
 {
-        width: 949px;
-        border: 2px solid #ccc;
-        margin-left: auto ;
-        margin-right: auto ;    
-        position:relative;
         color: #ccc;
+	background-color: #000;
 }
 
 #sparklines
 {
-     width: 949px;
-        border: 2px solid #ccc;
-        margin-left: auto ;
-        margin-right: auto ;
-        position:relative;
         color: #ccc;
 
 }

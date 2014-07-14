@@ -11,7 +11,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body <%= if (controller_name=="dashboard") then "class=body-dashboard" end %>>
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default" role="navigation">
 <div class="container">
 <ul class="nav nav-pills">
   <li <%= if (controller_name=="zones") then "class=active" end %>><a href="/zones">Zones</a></li>
