@@ -23,11 +23,22 @@ background-color: #222;
         display:inline-block;
         position:absolute;
         border: 3px solid #999;
+	opacity:0.0;
+}
+
+.animate 
+{
+    -webkit-animation: fadeOut 15s;
+}
+
+@-webkit-keyframes fadeOut 
+{
+    from {opacity: 1;}
+    to {opacity: 0;}
 }
 
 #office
 {
-        opacity:0.0;
         top:237px; 
         left:550px; 
         width:70px; 
@@ -36,7 +47,6 @@ background-color: #222;
 
 #kitchen
 {
-        opacity:0.0;
         top:102px; 
         left:550px; 
         width:70px; 
@@ -45,7 +55,6 @@ background-color: #222;
 
 #living_room
 {
-        opacity:0.0;
         top:102px; 
         left:622px; 
         width:122px; 
@@ -53,7 +62,6 @@ background-color: #222;
 }
 #back_porch
 {
-        opacity:0.0;
         top:150px; 
         left:500px; 
         width:50px; 
@@ -62,7 +70,6 @@ background-color: #222;
 }
 #carport
 {
-        opacity:0.0;
         top:38px; 
         left:608px; 
         width:136px; 

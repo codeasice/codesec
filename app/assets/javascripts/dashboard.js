@@ -15,21 +15,16 @@ function getSortedKeys(obj)
 
 function zone_alert(zone, stamp)
 {
-  zones[zone].level = 100.0;
+  var e;
+  e = document.getElementById(zones[zone].div);
+  e.classList.remove("animate");
+  e.offsetWidth = e.offsetWidth; // <-- Not sure why but this is crucial for cooky CSS reasons
+  e.classList.add("animate");
   zones[zone].stamp = stamp;
 }
 
 function refresh_alert()
 {
-        var div;
-	for(zone in zones)
-	{
-        	div = document.getElementById( zones[zone].div );
-	        div.style.opacity = zones[zone].level/100.0;
-        	if(zones[zone].level>0)
-                	zones[zone].level = zones[zone].level/1.1;
-	}        
-
   var zone_status = '';
   var sortedKeys = Object.keys(zones);//getSortedKeys(zone_stamps);
   for(index in sortedKeys) 
@@ -45,15 +40,16 @@ function refresh_alert()
 
 var recent_messages = new Array();
 var max_displayed_messages = 100;
+
 function log(msg)
 {
-	recent_messages.unshift (msg);
-	if(recent_messages.length > max_displayed_messages) recent_messages.pop();
-	$("#log").html("Last " + recent_messages.length + " Messages: <br />");
-	for (var i in recent_messages) 
-	{
-		$("#log").append(recent_messages[i] + '<br />');
-	}
+  recent_messages.unshift (msg);
+  if(recent_messages.length > max_displayed_messages) recent_messages.pop();
+  $("#log").html("Last " + recent_messages.length + " Messages: <br />");
+  for (var i in recent_messages) 
+  {
+    $("#log").append(recent_messages[i] + '<br />');
+  }  
 }
 
 function purdy_up_elapsed(elapsed)
