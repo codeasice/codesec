@@ -1,8 +1,30 @@
-var zones = {
+/*var zones = {
 	5:{"name":"Office", "level":100, "stamp": new Date(), "diff":null, "div":'office'},
 	6:{"name":"Kitchen", "level":100, "stamp": new Date(), "diff":null, "div":'kitchen'},
 	7:{"name":"Living Room", "level":100, "stamp": new Date(), "diff":null, "div":'living_room'}
 	};
+*/
+
+var zones = new Object;
+var recentAPI = "/zones.json";
+$.getJSON( recentAPI).done(
+		function( data ){
+			$.each(data, function (i, SingleObjectToConvert)	{
+			  var NewObject = new Object();
+			  NewObject.name =  SingleObjectToConvert.name;
+			  NewObject.level =  100;
+			  NewObject.stamp =  new Date();
+			  NewObject.diff =  null;
+			  NewObject.div =  SingleObjectToConvert.div;
+			  NewObject.created_at =  SingleObjectToConvert.created_at;
+			  NewObject.id =  SingleObjectToConvert.id;
+			  NewObject.updated_at =  SingleObjectToConvert.updated_at;
+			  NewObject.zone_id =  SingleObjectToConvert.zone_id;
+			  zones[NewObject.zone_id] = NewObject;
+			});
+		}
+	);
+
 
 var recent_id = -1;
 
