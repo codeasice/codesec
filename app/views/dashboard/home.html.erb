@@ -1,12 +1,33 @@
 
 <div class="row">
   <div class="col-sm-12" id="floorplan">
+<!--
     <div class="room" id="office" ></div>
     <div class="room" id="kitchen" ></div>
     <div class="room" id="living_room" ></div>
     <div class="room" id="back_porch" ></div>
     <div class="room" id="carport" ></div>
+-->
+	<svg id="mysvg" width="949px" height="371px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">
+		<image xlink:href="http://192.168.1.77:3000/assets/floorplan.jpg" x="0" y="0" height="371px" width="949px" />
+		<rect class="room" id="office" x="550px" y="237px" width="70px" height="40px" stroke="red" fill="red" fill-opacity=".5" stroke-opacity="0.8">
+		 </rect>
+		<!-- kitchen -->
+		<rect class="room" id="kitchen" x="550px" y="102px" width="70px" height="135px" stroke="red" fill="red" fill-opacity="1" stroke-opacity="0.8">
+		 </rect>
+		<!-- living_room -->
+		<rect class="room" id="living_room" x="622px" y="102px" width="122px" height="75px" stroke="red" fill="red" fill-opacity="1" stroke-opacity="0.8">
+		 </rect>
+		<!-- back_porch -->
+		<rect class="room" id="back_porch" x="500px" y="150px" width="50px" height="85px" stroke="red" fill="red" fill-opacity="1" stroke-opacity="0.8">
+		 </rect>
+		<!-- carport -->
+		<rect class="room" id="carport" x="608px" y="38px" width="136px" height="61px" stroke="red" fill="red" fill-opacity="1" stroke-opacity="0.8">
+		</rect>
+	</svg>
+
   </div>
+
 </div>
 <div class="row">
   <div class="col-sm-7">
