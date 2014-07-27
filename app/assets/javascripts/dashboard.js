@@ -1,32 +1,27 @@
-/*var zones = {
-	5:{"name":"Office", "level":100, "stamp": new Date(), "diff":null, "div":'office'},
-	6:{"name":"Kitchen", "level":100, "stamp": new Date(), "diff":null, "div":'kitchen'},
-	7:{"name":"Living Room", "level":100, "stamp": new Date(), "diff":null, "div":'living_room'}
-	};
-*/
-
 var zones = new Object;
 var recentAPI = "/zones.json";
 $.getJSON( recentAPI).done(
-		function( data ){
-			$.each(data, function (i, SingleObjectToConvert)	{
-			  var NewObject = new Object();
-			  NewObject.name =  SingleObjectToConvert.name;
-			  NewObject.level =  100;
-			  NewObject.stamp =  new Date();
-			  NewObject.diff =  null;
-			  NewObject.div =  SingleObjectToConvert.div;
-			  NewObject.created_at =  SingleObjectToConvert.created_at;
-			  NewObject.id =  SingleObjectToConvert.id;
-			  NewObject.updated_at =  SingleObjectToConvert.updated_at;
-			  NewObject.zone_id =  SingleObjectToConvert.zone_id;
-			  zones[NewObject.zone_id] = NewObject;
-			});
-		}
-	);
-
-
-var recent_id = -1;
+  function( data ){
+    $.each(data, function (i, SingleObjectToConvert)	{
+      var NewObject = new Object();
+      NewObject.name =  SingleObjectToConvert.name;
+      NewObject.stamp =  new Date();
+      NewObject.diff =  null;
+      NewObject.div =  SingleObjectToConvert.div;
+      NewObject.created_at =  SingleObjectToConvert.created_at;
+      NewObject.id =  SingleObjectToConvert.id;
+      NewObject.updated_at =  SingleObjectToConvert.updated_at;
+      NewObject.zone_id =  SingleObjectToConvert.zone_id;
+      NewObject.animate = function(){
+        var e = document.getElementById(this.div);
+        e.classList.remove("animate");
+        e.offsetWidth = e.offsetWidth; // <-- Not sure why but this is crucial for cooky CSS reasons
+        e.classList.add("animate");
+      }
+      zones[NewObject.zone_id] = NewObject;
+    });
+  }
+);
 
 function getSortedKeys(obj)
 {
@@ -37,18 +32,14 @@ function getSortedKeys(obj)
 
 function zone_alert(zone, stamp)
 {
-  var e;
-  e = document.getElementById(zones[zone].div);
-  e.classList.remove("animate");
-  e.offsetWidth = e.offsetWidth; // <-- Not sure why but this is crucial for cooky CSS reasons
-  e.classList.add("animate");
+  zones[zone].animate();
   zones[zone].stamp = stamp;
 }
 
 function refresh_alert()
 {
   var zone_status = '';
-  var sortedKeys = Object.keys(zones);//getSortedKeys(zone_stamps);
+  var sortedKeys = Object.keys(zones);
   for(index in sortedKeys) 
   { 
     var key = sortedKeys[index];
@@ -119,69 +110,60 @@ function DateHere()
   d.setHours(d.getHours());
   return d;
 }
+
+var recent_id = -1;
+
 function get_recent() 
 {
-	var recentAPI = "/recent.json";
-	$.getJSON( recentAPI, {
-	from_id: recent_id 
-	})
-	.done(
-	  function( data ) 
-	  {
-	
-	$.each(data, function (i, item) 
-{  
-if (item.id > recent_id)
-{ recent_id = item.id;
-zone_alert(item.zone, new Date(item.stamp));
-log("Testes:"+item.stamp + " : " + new DateHere());
-}
-});
-
-
-    });
-}
-
-  $(function() {
-    var faye = new Faye.Client('http://192.168.1.77:9292/faye');
-    faye.subscribe("/messages/new", function(data)
-    {
-      try
-      {
-        data = JSON.parse(data);
-      }
-      catch(e)
-      {
-        log("Can't parse some JSON!");
-      }
-      log(data.msg);
-    });
-    faye.subscribe("/messages/zonestatus", function(data)
-    {
-      var msg = JSON.parse(data);
-      log(msg.stamp + ' ' + zones[msg.zone].name + "[" + msg.zone + "] ");
-      zone_alert(msg.zone, new Date(msg.stamp));
-      bubblesInc(zones[msg.zone].name );
+  var recentAPI = "/recent.json";
+  $.getJSON( recentAPI, {
+    from_id: recent_id 
+  }).done(function( data ){
+    $.each(data, function (i, item){  
+      if (item.id > recent_id){ 
+        recent_id = item.id;
+        zone_alert(item.zone, new Date(item.stamp));
+        log("Testes:"+item.stamp + " : " + new DateHere());
+      }   
     });
   });
+}
 
-  setInterval(refresh_alert,1000);
-
-  function bubblesPrint()
-  {
-    var keys = Object.keys(newbubbles);
-    $( "#sparklines" ).html('<table>');
-
-    for (var j = 0; j < keys.length; j++)
+$(function() {
+  var faye = new Faye.Client('http://192.168.1.77:9292/faye');
+  faye.subscribe("/messages/new", function(data){
+    try
     {
-      var str = keys[j];
-      var tagName = 'sparkline'+str.replace(/\W/g, '')
-      $("#sparklines").append('<tr><td>' + str + "</td><td> <span class='"+tagName+"' id='"+tagName+"'></span></td></tr>");
-      $("#"+tagName).sparkline(oldbubbles[str], {type: 'line', height: '60', barColor: 'red', chartRangeMax: bubblesMaxValue()} );
+      data = JSON.parse(data);
     }
-    $( "#sparklines" ).append('</table>');
-  }
-  numbubbles = 288;
+    catch(e)
+    {
+      log("Can't parse some JSON!");
+    }
+    log(data.msg);
+  });
+  faye.subscribe("/messages/zonestatus", function(data){
+    var msg = JSON.parse(data);
+    log(msg.stamp + ' ' + zones[msg.zone].name + "[" + msg.zone + "] ");
+    zone_alert(msg.zone, new Date(msg.stamp));
+    bubblesInc(zones[msg.zone].name );
+  });
+});
 
-  window.setInterval(function(){bubblesShift(); bubblesPrint();},600 * 1000);
+setInterval(refresh_alert,1000);
+
+function bubblesPrint()
+{
+  var keys = Object.keys(newbubbles);
+  $( "#sparklines" ).html('<table>');
+  for (var j = 0; j < keys.length; j++){
+    var str = keys[j];
+    var tagName = 'sparkline'+str.replace(/\W/g, '')
+    $("#sparklines").append('<tr><td>' + str + "</td><td> <span class='"+tagName+"' id='"+tagName+"'></span></td></tr>");
+    $("#"+tagName).sparkline(oldbubbles[str], {type: 'line', height: '60', barColor: 'red', chartRangeMax: bubblesMaxValue()} );
+  }
+  $( "#sparklines" ).append('</table>');
+}
+numbubbles = 288;
+window.setInterval(function(){bubblesShift(); bubblesPrint();},600 * 1000);
 
