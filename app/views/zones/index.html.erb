@@ -6,6 +6,10 @@
     <th>Zone ID</th>
     <th>Name</th>
     <th>Div</th>
+   <th>x</th>
+   <th>y</th>
+   <th>width</th>
+   <th>height</th>
     <th></th>
     <th></th>
     <th></th>
@@ -16,6 +20,10 @@
     <td><%= zone.zone_id %></td>
     <td><%= zone.name %></td>
     <td><%= zone.div %></td>
+    <td><%= zone.x %></td>
+    <td><%= zone.y %></td>
+    <td><%= zone.width %></td>
+    <td><%= zone.height %></td>
     <td><%= link_to 'Show', zone, :class=>"btn btn-default"  %></td>
     <td><%= link_to 'Edit', edit_zone_path(zone), :class=>"btn btn-default" %></td>
     <td><%= link_to 'Destroy', zone, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>

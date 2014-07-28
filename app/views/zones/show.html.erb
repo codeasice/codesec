@@ -1,18 +1,69 @@
-<p id="notice"><%= notice %></p>
-<p>
-  <b>Zone ID:</b>
-  <%= @zone.zone_id %>
-</p>
+<div class="row">
+  <div id="notice"><%= notice %></>
+</div>
 
-<p>
-  <b>Name:</b>
-  <%= @zone.name %>
-</p>
+<div class="row">
+  <div class="col-md-2">
+    <b>Zone ID:</b>
+  </div>
+  <div class="col-md-2">
+    <%= @zone.zone_id %>
+  </div>
+</div>
 
-<p>
-  <b>Div:</b>
-  <%= @zone.div %>
-</p>
+<div class="row">
+  <div class="col-md-2">
+    <b>Name:</b>
+  </div>
+  <div class="col-md-2">
+    <%= @zone.name %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <b>Div:</b>
+  </div>
+  <div class="col-md-2">
+    <%= @zone.div %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <b>X pos:</b>
+  </div>
+  <div class="col-md-2">
+    <%= @zone.x %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <b>Y pos:</b>
+  </div>
+  <div class="col-md-2">
+    <%= @zone.y %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <b>Width:</b>
+  </div>
+  <div class="col-md-2">
+    <%= @zone.width %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <b>Height:</b>
+  </div>
+  <div class="col-md-2">
+    <%= @zone.height %>
+  </div>
+</div>
 
 
 <%= link_to 'Edit', edit_zone_path(@zone), :class => 'btn default-btn' %>

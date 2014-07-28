@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140603024512) do
+ActiveRecord::Schema.define(:version => 20140728012734) do
 
   create_table "zone_statuses", :force => true do |t|
     t.integer  "zone"
@@ -27,6 +27,10 @@ ActiveRecord::Schema.define(:version => 20140603024512) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "zone_id"
+    t.integer  "x"
+    t.integer  "y"
+    t.integer  "width"
+    t.integer  "height"
   end
 
 end

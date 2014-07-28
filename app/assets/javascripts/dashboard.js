@@ -1,27 +1,63 @@
+var recent_messages = new Array();
+var max_displayed_messages = 100;
 var zones = new Object;
-var recentAPI = "/zones.json";
-$.getJSON( recentAPI).done(
-  function( data ){
-    $.each(data, function (i, SingleObjectToConvert)	{
-      var NewObject = new Object();
-      NewObject.name =  SingleObjectToConvert.name;
-      NewObject.stamp =  new Date();
-      NewObject.diff =  null;
-      NewObject.div =  SingleObjectToConvert.div;
-      NewObject.created_at =  SingleObjectToConvert.created_at;
-      NewObject.id =  SingleObjectToConvert.id;
-      NewObject.updated_at =  SingleObjectToConvert.updated_at;
-      NewObject.zone_id =  SingleObjectToConvert.zone_id;
-      NewObject.animate = function(){
-        var e = document.getElementById(this.div);
-        e.classList.remove("animate");
-        e.offsetWidth = e.offsetWidth; // <-- Not sure why but this is crucial for cooky CSS reasons
-        e.classList.add("animate");
-      }
-      zones[NewObject.zone_id] = NewObject;
-    });
-  }
-);
+
+LoadZones();
+ConnectToFaye();
+setInterval(refresh_alert,1000);
+numbubbles = 288;
+window.setInterval(function(){bubblesShift(); bubblesPrint();},600 * 1000);
+
+function DrawZones(svg_id)
+{
+  var svg = document.getElementById(svg_id);
+  $.each(zones, function(index, entry) {
+    var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    rect.setAttribute("id", entry.div);
+    rect.setAttribute("fill","red");
+    rect.setAttribute("fill-opacity","1.0");
+    rect.setAttribute("stroke","black");
+    rect.setAttribute("stroke-width","1.0");
+    rect.setAttribute("x", entry.x);
+    rect.setAttribute("y", entry.y);
+    rect.setAttribute("width", entry.width);
+    rect.setAttribute("height", entry.height);
+    rect.setAttribute("class", "room");
+    svg.appendChild(rect);
+  }); 
+}
+
+function LoadZones()
+{
+  var recentAPI = "/zones.json";
+  $.getJSON( recentAPI).done(
+    function( data ){
+      $.each(data, function (i, SingleObjectToConvert)  {
+        var NewObject = new Object();
+        NewObject.name =  SingleObjectToConvert.name;
+        NewObject.stamp =  new Date();
+        NewObject.diff =  null;
+        NewObject.div =  SingleObjectToConvert.div;
+        NewObject.created_at =  SingleObjectToConvert.created_at;
+        NewObject.id =  SingleObjectToConvert.id;
+        NewObject.updated_at =  SingleObjectToConvert.updated_at;
+        NewObject.zone_id =  SingleObjectToConvert.zone_id;
+        NewObject.x =  SingleObjectToConvert.x;
+        NewObject.y =  SingleObjectToConvert.y;
+        NewObject.width =  SingleObjectToConvert.width;
+        NewObject.height =  SingleObjectToConvert.height;
+        NewObject.animate = function(){
+          var e = document.getElementById(this.div);
+          e.classList.remove("animate");
+          e.offsetWidth = e.offsetWidth; // <-- Not sure why but this is crucial for cooky CSS reasons
+          e.classList.add("animate");
+        }
+        zones[NewObject.zone_id] = NewObject;
+      });
+    DrawZones("mysvg");
+    }
+  );
+}
 
 function getSortedKeys(obj)
 {
@@ -51,8 +87,6 @@ function refresh_alert()
   $("#status").html(zone_status);
 }
 
-var recent_messages = new Array();
-var max_displayed_messages = 100;
 
 function log(msg)
 {
@@ -129,7 +163,7 @@ function get_recent()
   });
 }
 
-$(function() {
+function ConnectToFaye() {
   var faye = new Faye.Client('http://192.168.1.77:9292/faye');
   faye.subscribe("/messages/new", function(data){
     try
@@ -148,9 +182,8 @@ $(function() {
     zone_alert(msg.zone, new Date(msg.stamp));
     bubblesInc(zones[msg.zone].name );
   });
-});
+}
 
-setInterval(refresh_alert,1000);
 
 function bubblesPrint()
 {
@@ -164,6 +197,4 @@ function bubblesPrint()
   }
   $( "#sparklines" ).append('</table>');
 }
-numbubbles = 288;
-window.setInterval(function(){bubblesShift(); bubblesPrint();},600 * 1000);
 

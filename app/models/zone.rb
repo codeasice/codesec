@@ -1,3 +1,3 @@
 class Zone < ActiveRecord::Base
-  attr_accessible :div, :name, :zone_id
+  attr_accessible :div, :name, :zone_id, :x, :y, :height, :width
 end
