@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Fayeurl:</b>
+  <%= @setting.fayeURL %>
+</p>
+
+<p>
+  <b>Floorplan:</b>
+  <%= @setting.floorplan %>
+</p>
+
+
+<%= link_to 'Edit', edit_setting_path(@setting) %> |
+<%= link_to 'Back', settings_path %>

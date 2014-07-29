@@ -1,4 +1,7 @@
 Codesec::Application.routes.draw do
+  resources :settings
+
+
   get "diagnostics/home"
 
   resources :zones
