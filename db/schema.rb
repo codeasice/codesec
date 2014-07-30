@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140728012734) do
+ActiveRecord::Schema.define(:version => 20140729030016) do
+
+  create_table "settings", :force => true do |t|
+    t.string   "fayeURL"
+    t.string   "floorplan"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "zone_statuses", :force => true do |t|
     t.integer  "zone"

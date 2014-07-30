@@ -2,11 +2,18 @@ var recent_messages = new Array();
 var max_displayed_messages = 100;
 var zones = new Object;
 
-LoadZones();
-ConnectToFaye();
-setInterval(refresh_alert,1000);
-numbubbles = 288;
-window.setInterval(function(){bubblesShift(); bubblesPrint();},600 * 1000);
+var fayeURL="<%=
+  @setting = Setting.find(1)
+  @setting.fayeURL
+%>";
+
+$( document ).ready(function() {
+  LoadZones();
+  ConnectToFaye();
+  setInterval(refresh_alert,1000);
+  numbubbles = 288;
+  window.setInterval(function(){bubblesShift(); bubblesPrint();},600 * 1000);
+});
 
 function DrawZones(svg_id)
 {
@@ -164,7 +171,7 @@ function get_recent()
 }
 
 function ConnectToFaye() {
-  var faye = new Faye.Client('http://192.168.1.77:9292/faye');
+  var faye = new Faye.Client(fayeURL);
   faye.subscribe("/messages/new", function(data){
     try
     {
