@@ -4,7 +4,7 @@
   <title>Codesec</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
-<%= if (controller_name=="dashboard" or controller_name=="diagnostics") then javascript_include_tag :defaults, "http://192.168.1.77:9292/faye.js" end %>
+  <%= if (controller_name=="dashboard" or controller_name=="diagnostics") then javascript_include_tag "http://192.168.1.77:9292/faye.js" end %>
   <%= if (controller_name=="dashboard") then javascript_include_tag "bubbles" end %>
   <%= if (controller_name=="dashboard") then javascript_include_tag "jquery.sparkline.min" end %>
   <%= if (controller_name=="dashboard") then javascript_include_tag "dashboard" end %>
