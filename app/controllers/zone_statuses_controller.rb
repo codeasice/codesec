@@ -2,7 +2,7 @@ class ZoneStatusesController < ApplicationController
   # GET /zone_statuses
   # GET /zone_statuses.json
   def index
-    @zone_statuses = ZoneStatus.all
+    @zone_statuses = ZoneStatus.order(:id).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
