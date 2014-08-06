@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '4.1.4'
 
-gem "redis", "~> 3.0.7"
+#gem "redis", "~> 3.0.7"
 gem 'faye'
 
 # Bundle edge Rails instead:
@@ -17,15 +17,12 @@ gem "therubyracer"
 gem 'less-rails'
 gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'
 
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
-
-  gem 'uglifier', '>= 1.0.3'
-end
+#gem 'sass-rails' #, '~> 4.0.0.rc1'
+gem 'sass-rails', github: 'rails/sass-rails'
+gem 'coffee-rails' #, '~> 3.2.1'
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer', :platforms => :ruby
+gem 'uglifier', '>= 1.0.3'
 
 gem 'jquery-rails'
 
@@ -43,7 +40,14 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
-gem 'rmagick'
-gem 'sparklines'
+#gem 'rmagick'
+#gem 'sparklines'
 gem 'thin'
 gem 'kaminari'
+gem 'devise'
+
+gem 'protected_attributes'
+gem 'rails-observers'
+gem 'actionpack-page_caching'
+gem 'actionpack-action_caching'
+gem 'activerecord-deprecated_finders'

@@ -1,4 +1,6 @@
 Codesec::Application.routes.draw do
+  devise_for :users
+
   resources :settings
 
 
@@ -13,8 +15,8 @@ Codesec::Application.routes.draw do
 
   resources :zone_statuses
 
- match '/recent', to: 'zone_statuses#recent'
- match '/sparklines', to: 'dashboard#sparklines'
+ match '/recent', to: 'zone_statuses#recent', via: :get
+ match '/sparklines', to: 'dashboard#sparklines', via: :get
 
 
   # The priority is based upon order of creation:
@@ -66,7 +68,7 @@ Codesec::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+root :to => 'dashboard#home'
 
   # See how all your routes lay out with "rake routes"
 
