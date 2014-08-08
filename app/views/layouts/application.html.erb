@@ -4,21 +4,27 @@
   <title>Codesec</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
-  <%= if (controller_name=="dashboard" or controller_name=="diagnostics") then javascript_include_tag "http://192.168.1.77:9292/faye.js" end %>
-  <%= if (controller_name=="dashboard") then javascript_include_tag "bubbles" end %>
-  <%= if (controller_name=="dashboard") then javascript_include_tag "jquery.sparkline.min" end %>
-  <%= if (controller_name=="dashboard") then javascript_include_tag "dashboard" end %>
+  <%= 
+    begin
+      @setting = Setting.find(1)
+      javascript_include_tag @setting.fayeURL+".js" if controller_name=="dashboard" or controller_name=="diagnostics"
+    rescue ActiveRecord::RecordNotFound => e
+     "<!-- O Snap!  No Settings found...  Can't include Faye JS Link! -->".html_safe
+    end %>
+  <%= javascript_include_tag "bubbles" if controller_name=="dashboard"  %>
+  <%= javascript_include_tag "jquery.sparkline.min" if controller_name=="dashboard"  %>
+  <%= javascript_include_tag "dashboard" if controller_name=="dashboard"  %>
   <%= csrf_meta_tags %>
 </head>
 <body <%= if (controller_name=="dashboard") then "class=body-dashboard" end %>>
 <nav class="navbar navbar-inverse" role="navigation">
 <div class="container-fluid">
 <ul class="nav navbar-nav">
-  <li <%= if (controller_name=="zones") then "class=active" end %>><%= link_to "Zones", zones_url %></li>
-  <li <%= if (controller_name=="zone_statuses") then "class=active" end %>><%= link_to "Zone Statuses", zone_statuses_url %></li>
-  <li <%= if (controller_name=="dashboard") then "class=active" end %>><%= link_to "Dashboard", dashboard_url %></li>
-  <li <%= if (controller_name=="diagnostics") then "class=active" end %>><%= link_to "Diagnostics", diagnostics_url %></li>
-  <li <%= if (controller_name=="settings") then "class=active" end %>><%= link_to "Settings", settings_url %></li>
+  <li <%= "class=active" if controller_name=="zones"  %>><%= link_to "Zones", zones_url %></li>
+  <li <%= "class=active" if controller_name=="zone_statuses"  %>><%= link_to "Zone Statuses", zone_statuses_url %></li>
+  <li <%= "class=active" if controller_name=="dashboard" %>><%= link_to "Dashboard", dashboard_url %></li>
+  <li <%= "class=active" if controller_name=="diagnostics" %>><%= link_to "Diagnostics", diagnostics_url %></li>
+  <li <%= "class=active" if controller_name=="settings" %>><%= link_to "Settings", settings_url %></li>
 </ul>
 <%unless current_user.blank? -%>
 <%= link_to "Sign Out", destroy_user_session_path, :method => "delete", :class => "navbar-text navbar-right"  %>

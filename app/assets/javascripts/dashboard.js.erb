@@ -2,10 +2,14 @@ var recent_messages = new Array();
 var max_displayed_messages = 100;
 var zones = new Object;
 
-var fayeURL="<%=
+var fayeURL = <%=
+begin
   @setting = Setting.find(1)
-  @setting.fayeURL
-%>";
+  '"'+@setting.fayeURL+'";'
+rescue ActiveRecord::RecordNotFound => e
+  '""; // No settings available!!!'
+end 
+%>
 
 $( document ).ready(function() {
   LoadZones();
