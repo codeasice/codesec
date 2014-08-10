@@ -1,4 +1,6 @@
 Codesec::Application.routes.draw do
+  resources :floorplans
+
   devise_for :users
 
   resources :settings

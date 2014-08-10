@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @floorplan.name %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @floorplan.image %>
+  <%= image_tag @floorplan.image_url.to_s %>
+</p>
+
+<%= link_to 'Edit', edit_floorplan_path(@floorplan) %> |
+<%= link_to 'Back', floorplans_path %>
